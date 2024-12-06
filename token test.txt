@@ -1,0 +1,51 @@
+//== TOKEN TEST ==
+//=RESERVED
+    function fun_id()
+    return "id"
+    if (2 + 2) //Rip boolean operators
+    else
+//=PUNCTUATION (aka, literals)
+    ("parenthesis")
+    ["brackets"]
+    ,
+    g["g_bracket"]
+    n("n_parenthesis")
+//=OPERATORS
+    2 + 2
+    2.5 - .5
+    5 * .5
+    PI = 3.14159
+    PI / 3
+    node_A --- node_B
+    node_X -/- node_Y
+    node_P <-- node_Q
+    node1 --> node2
+    n1 --.5- n2
+    n10 <2- n11
+    home -0> school
+    oh <10> no
+    not <-> again
+//=TYPES
+    node n()()
+    edge tbd
+    graph g[]
+    int 15
+    dec -.05
+    str "sup"
+//=LANGUAGE_FUNCTIONS
+    add()
+    remove()
+    join()
+    subtract()
+    intersect()
+    reverse()
+    disconnect()
+    connectAll()
+    pathFind()
+    degree()
+//=MISC
+    identifier
+    type int
+    //comment
+    array_g[]
+    fun()

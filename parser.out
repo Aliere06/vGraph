@@ -1,0 +1,2072 @@
+Created by PLY (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    COMMENT
+    EDGE
+    ELSE
+    FUNCTION
+    GRAPH
+    IF
+    NODE
+    RETURN
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> lines
+Rule 2     lines -> lines LINE_BREAK line
+Rule 3     lines -> line
+Rule 4     line -> type_expression
+Rule 5     line -> assignment_expression
+Rule 6     line -> arithmetic_expression
+Rule 7     line -> graph_expression
+Rule 8     line -> function_call
+Rule 9     plain_value -> INTEGER
+Rule 10    plain_value -> DECIMAL
+Rule 11    plain_value -> STRING
+Rule 12    plain_value -> node
+Rule 13    plain_value -> graph
+Rule 14    type_expression -> TYPE ID
+Rule 15    type_expression -> L_BRACKET TYPE R_BRACKET ID
+Rule 16    assignment_expression -> type_expression ASSIGN_OP assignable
+Rule 17    assignment_expression -> ID ASSIGN_OP assignable
+Rule 18    assignment_expression -> assignable ASSIGN_OP type_expression
+Rule 19    assignment_expression -> assignable ASSIGN_OP ID
+Rule 20    assignable -> ID
+Rule 21    assignable -> plain_value
+Rule 22    assignable -> arithmetic_expression
+Rule 23    assignable -> graph_expression
+Rule 24    arithmetic_expression -> ari_operand ari_operator arithmetic_expression
+Rule 25    arithmetic_expression -> ari_operand
+Rule 26    ari_operand -> INTEGER
+Rule 27    ari_operand -> DECIMAL
+Rule 28    ari_operand -> ID
+Rule 29    ari_operator -> PLUS_OP
+Rule 30    ari_operator -> MINUS_OP
+Rule 31    ari_operator -> TIMES_OP
+Rule 32    ari_operator -> OVER_OP
+Rule 33    graph_expression -> graph_operand graph_operator graph_expression
+Rule 34    graph_expression -> graph_operand
+Rule 35    graph_operand -> node
+Rule 36    graph_operand -> ID
+Rule 37    graph_operator -> CONNECT_OP
+Rule 38    graph_operator -> DISCONNECT_OP
+Rule 39    graph_operator -> L_CONNECT_OP
+Rule 40    graph_operator -> R_CONNECT_OP
+Rule 41    graph_operator -> WEIGHT_OP
+Rule 42    graph_operator -> L_WEIGHT_OP
+Rule 43    graph_operator -> R_WEIGHT_OP
+Rule 44    node -> plain_node
+Rule 45    node -> plain_node node_connections
+Rule 46    node -> ID
+Rule 47    plain_node -> N_PARENTHESIS plain_value R_PARENTHESIS
+Rule 48    plain_node -> N_PARENTHESIS R_PARENTHESIS
+Rule 49    node_connections -> L_PARENTHESIS node_list R_PARENTHESIS
+Rule 50    node_connections -> L_PARENTHESIS R_PARENTHESIS
+Rule 51    node_list -> node_list COMMA node
+Rule 52    node_list -> node
+Rule 53    graph -> G_BRACKET node_list R_BRACKET
+Rule 54    graph -> G_BRACKET R_BRACKET
+Rule 55    graph -> ID
+Rule 56    function_call -> add
+Rule 57    function_call -> remove
+Rule 58    function_call -> join
+Rule 59    function_call -> subtract
+Rule 60    function_call -> intersect
+Rule 61    function_call -> reverse
+Rule 62    function_call -> disconnect
+Rule 63    function_call -> connect_all
+Rule 64    function_call -> path_find
+Rule 65    add -> ADD_FUNC L_PARENTHESIS graph COMMA node_list R_PARENTHESIS
+Rule 66    remove -> REMOVE_FUNC L_PARENTHESIS graph COMMA node_list R_PARENTHESIS
+Rule 67    join -> JOIN_FUNC L_PARENTHESIS graph COMMA graph R_PARENTHESIS
+Rule 68    subtract -> SUBTRACT_FUNC L_PARENTHESIS graph COMMA graph R_PARENTHESIS
+Rule 69    intersect -> INTERSECT_FUNC L_PARENTHESIS graph COMMA graph R_PARENTHESIS
+Rule 70    reverse -> REVERSE_FUNC L_PARENTHESIS graph R_PARENTHESIS
+Rule 71    disconnect -> DISCONNECT_FUNC L_PARENTHESIS graph R_PARENTHESIS
+Rule 72    connect_all -> CONNECT_ALL_FUNC L_PARENTHESIS graph R_PARENTHESIS
+Rule 73    path_find -> PATH_FIND_FUNC L_PARENTHESIS node COMMA node R_PARENTHESIS
+Rule 74    degree -> DEGREE_FUNC L_PARENTHESIS node R_PARENTHESIS
+
+Terminals, with rules where they appear
+
+ADD_FUNC             : 65
+ASSIGN_OP            : 16 17 18 19
+COMMA                : 51 65 66 67 68 69 73
+COMMENT              : 
+CONNECT_ALL_FUNC     : 72
+CONNECT_OP           : 37
+DECIMAL              : 10 27
+DEGREE_FUNC          : 74
+DISCONNECT_FUNC      : 71
+DISCONNECT_OP        : 38
+EDGE                 : 
+ELSE                 : 
+FUNCTION             : 
+GRAPH                : 
+G_BRACKET            : 53 54
+ID                   : 14 15 17 19 20 28 36 46 55
+IF                   : 
+INTEGER              : 9 26
+INTERSECT_FUNC       : 69
+JOIN_FUNC            : 67
+LINE_BREAK           : 2
+L_BRACKET            : 15
+L_CONNECT_OP         : 39
+L_PARENTHESIS        : 49 50 65 66 67 68 69 70 71 72 73 74
+L_WEIGHT_OP          : 42
+MINUS_OP             : 30
+NODE                 : 
+N_PARENTHESIS        : 47 48
+OVER_OP              : 32
+PATH_FIND_FUNC       : 73
+PLUS_OP              : 29
+REMOVE_FUNC          : 66
+RETURN               : 
+REVERSE_FUNC         : 70
+R_BRACKET            : 15 53 54
+R_CONNECT_OP         : 40
+R_PARENTHESIS        : 47 48 49 50 65 66 67 68 69 70 71 72 73 74
+R_WEIGHT_OP          : 43
+STRING               : 11
+SUBTRACT_FUNC        : 68
+TIMES_OP             : 31
+TYPE                 : 14 15
+WEIGHT_OP            : 41
+error                : 
+
+Nonterminals, with rules where they appear
+
+add                  : 56
+ari_operand          : 24 25
+ari_operator         : 24
+arithmetic_expression : 6 22 24
+assignable           : 16 17 18 19
+assignment_expression : 5
+connect_all          : 63
+degree               : 
+disconnect           : 62
+function_call        : 8
+graph                : 13 65 66 67 67 68 68 69 69 70 71 72
+graph_expression     : 7 23 33
+graph_operand        : 33 34
+graph_operator       : 33
+intersect            : 60
+join                 : 58
+line                 : 2 3
+lines                : 1 2
+node                 : 12 35 51 52 73 73 74
+node_connections     : 45
+node_list            : 49 51 53 65 66
+path_find            : 64
+plain_node           : 44 45
+plain_value          : 21 47
+program              : 0
+remove               : 57
+reverse              : 61
+subtract             : 59
+type_expression      : 4 16 18
+
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . lines
+    (2) lines -> . lines LINE_BREAK line
+    (3) lines -> . line
+    (4) line -> . type_expression
+    (5) line -> . assignment_expression
+    (6) line -> . arithmetic_expression
+    (7) line -> . graph_expression
+    (8) line -> . function_call
+    (14) type_expression -> . TYPE ID
+    (15) type_expression -> . L_BRACKET TYPE R_BRACKET ID
+    (16) assignment_expression -> . type_expression ASSIGN_OP assignable
+    (17) assignment_expression -> . ID ASSIGN_OP assignable
+    (18) assignment_expression -> . assignable ASSIGN_OP type_expression
+    (19) assignment_expression -> . assignable ASSIGN_OP ID
+    (24) arithmetic_expression -> . ari_operand ari_operator arithmetic_expression
+    (25) arithmetic_expression -> . ari_operand
+    (33) graph_expression -> . graph_operand graph_operator graph_expression
+    (34) graph_expression -> . graph_operand
+    (56) function_call -> . add
+    (57) function_call -> . remove
+    (58) function_call -> . join
+    (59) function_call -> . subtract
+    (60) function_call -> . intersect
+    (61) function_call -> . reverse
+    (62) function_call -> . disconnect
+    (63) function_call -> . connect_all
+    (64) function_call -> . path_find
+    (20) assignable -> . ID
+    (21) assignable -> . plain_value
+    (22) assignable -> . arithmetic_expression
+    (23) assignable -> . graph_expression
+    (26) ari_operand -> . INTEGER
+    (27) ari_operand -> . DECIMAL
+    (28) ari_operand -> . ID
+    (35) graph_operand -> . node
+    (36) graph_operand -> . ID
+    (65) add -> . ADD_FUNC L_PARENTHESIS graph COMMA node_list R_PARENTHESIS
+    (66) remove -> . REMOVE_FUNC L_PARENTHESIS graph COMMA node_list R_PARENTHESIS
+    (67) join -> . JOIN_FUNC L_PARENTHESIS graph COMMA graph R_PARENTHESIS
+    (68) subtract -> . SUBTRACT_FUNC L_PARENTHESIS graph COMMA graph R_PARENTHESIS
+    (69) intersect -> . INTERSECT_FUNC L_PARENTHESIS graph COMMA graph R_PARENTHESIS
+    (70) reverse -> . REVERSE_FUNC L_PARENTHESIS graph R_PARENTHESIS
+    (71) disconnect -> . DISCONNECT_FUNC L_PARENTHESIS graph R_PARENTHESIS
+    (72) connect_all -> . CONNECT_ALL_FUNC L_PARENTHESIS graph R_PARENTHESIS
+    (73) path_find -> . PATH_FIND_FUNC L_PARENTHESIS node COMMA node R_PARENTHESIS
+    (9) plain_value -> . INTEGER
+    (10) plain_value -> . DECIMAL
+    (11) plain_value -> . STRING
+    (12) plain_value -> . node
+    (13) plain_value -> . graph
+    (44) node -> . plain_node
+    (45) node -> . plain_node node_connections
+    (46) node -> . ID
+    (53) graph -> . G_BRACKET node_list R_BRACKET
+    (54) graph -> . G_BRACKET R_BRACKET
+    (55) graph -> . ID
+    (47) plain_node -> . N_PARENTHESIS plain_value R_PARENTHESIS
+    (48) plain_node -> . N_PARENTHESIS R_PARENTHESIS
+
+    TYPE            shift and go to state 9
+    L_BRACKET       shift and go to state 11
+    ID              shift and go to state 10
+    INTEGER         shift and go to state 25
+    DECIMAL         shift and go to state 26
+    ADD_FUNC        shift and go to state 28
+    REMOVE_FUNC     shift and go to state 30
+    JOIN_FUNC       shift and go to state 31
+    SUBTRACT_FUNC   shift and go to state 32
+    INTERSECT_FUNC  shift and go to state 33
+    REVERSE_FUNC    shift and go to state 34
+    DISCONNECT_FUNC shift and go to state 35
+    CONNECT_ALL_FUNC shift and go to state 36
+    PATH_FIND_FUNC  shift and go to state 37
+    STRING          shift and go to state 38
+    G_BRACKET       shift and go to state 40
+    N_PARENTHESIS   shift and go to state 41
+
+    program                        shift and go to state 1
+    lines                          shift and go to state 2
+    line                           shift and go to state 3
+    type_expression                shift and go to state 4
+    assignment_expression          shift and go to state 5
+    arithmetic_expression          shift and go to state 6
+    graph_expression               shift and go to state 7
+    function_call                  shift and go to state 8
+    assignable                     shift and go to state 12
+    ari_operand                    shift and go to state 13
+    graph_operand                  shift and go to state 14
+    add                            shift and go to state 15
+    remove                         shift and go to state 16
+    join                           shift and go to state 17
+    subtract                       shift and go to state 18
+    intersect                      shift and go to state 19
+    reverse                        shift and go to state 20
+    disconnect                     shift and go to state 21
+    connect_all                    shift and go to state 22
+    path_find                      shift and go to state 23
+    plain_value                    shift and go to state 24
+    node                           shift and go to state 27
+    graph                          shift and go to state 29
+    plain_node                     shift and go to state 39
+
+state 1
+
+    (0) S' -> program .
+
+
+
+state 2
+
+    (1) program -> lines .
+    (2) lines -> lines . LINE_BREAK line
+
+    $end            reduce using rule 1 (program -> lines .)
+    LINE_BREAK      shift and go to state 42
+
+
+state 3
+
+    (3) lines -> line .
+
+    LINE_BREAK      reduce using rule 3 (lines -> line .)
+    $end            reduce using rule 3 (lines -> line .)
+
+
+state 4
+
+    (4) line -> type_expression .
+    (16) assignment_expression -> type_expression . ASSIGN_OP assignable
+
+    LINE_BREAK      reduce using rule 4 (line -> type_expression .)
+    $end            reduce using rule 4 (line -> type_expression .)
+    ASSIGN_OP       shift and go to state 43
+
+
+state 5
+
+    (5) line -> assignment_expression .
+
+    LINE_BREAK      reduce using rule 5 (line -> assignment_expression .)
+    $end            reduce using rule 5 (line -> assignment_expression .)
+
+
+state 6
+
+    (6) line -> arithmetic_expression .
+    (22) assignable -> arithmetic_expression .
+
+    LINE_BREAK      reduce using rule 6 (line -> arithmetic_expression .)
+    $end            reduce using rule 6 (line -> arithmetic_expression .)
+    ASSIGN_OP       reduce using rule 22 (assignable -> arithmetic_expression .)
+
+
+state 7
+
+    (7) line -> graph_expression .
+    (23) assignable -> graph_expression .
+
+    LINE_BREAK      reduce using rule 7 (line -> graph_expression .)
+    $end            reduce using rule 7 (line -> graph_expression .)
+    ASSIGN_OP       reduce using rule 23 (assignable -> graph_expression .)
+
+
+state 8
+
+    (8) line -> function_call .
+
+    LINE_BREAK      reduce using rule 8 (line -> function_call .)
+    $end            reduce using rule 8 (line -> function_call .)
+
+
+state 9
+
+    (14) type_expression -> TYPE . ID
+
+    ID              shift and go to state 44
+
+
+state 10
+
+    (17) assignment_expression -> ID . ASSIGN_OP assignable
+    (20) assignable -> ID .
+    (28) ari_operand -> ID .
+    (36) graph_operand -> ID .
+    (46) node -> ID .
+    (55) graph -> ID .
+
+  ! shift/reduce conflict for ASSIGN_OP resolved as shift
+  ! shift/reduce conflict for ASSIGN_OP resolved as shift
+  ! reduce/reduce conflict for LINE_BREAK resolved using rule 28 (ari_operand -> ID .)
+  ! reduce/reduce conflict for $end resolved using rule 28 (ari_operand -> ID .)
+  ! shift/reduce conflict for ASSIGN_OP resolved as shift
+  ! reduce/reduce conflict for CONNECT_OP resolved using rule 36 (graph_operand -> ID .)
+  ! reduce/reduce conflict for DISCONNECT_OP resolved using rule 36 (graph_operand -> ID .)
+  ! reduce/reduce conflict for L_CONNECT_OP resolved using rule 36 (graph_operand -> ID .)
+  ! reduce/reduce conflict for R_CONNECT_OP resolved using rule 36 (graph_operand -> ID .)
+  ! reduce/reduce conflict for WEIGHT_OP resolved using rule 36 (graph_operand -> ID .)
+  ! reduce/reduce conflict for L_WEIGHT_OP resolved using rule 36 (graph_operand -> ID .)
+  ! reduce/reduce conflict for R_WEIGHT_OP resolved using rule 36 (graph_operand -> ID .)
+  ! reduce/reduce conflict for LINE_BREAK resolved using rule 28 (ari_operand -> ID .)
+  ! reduce/reduce conflict for $end resolved using rule 28 (ari_operand -> ID .)
+  ! shift/reduce conflict for ASSIGN_OP resolved as shift
+  ! shift/reduce conflict for ASSIGN_OP resolved as shift
+    ASSIGN_OP       shift and go to state 45
+    PLUS_OP         reduce using rule 28 (ari_operand -> ID .)
+    MINUS_OP        reduce using rule 28 (ari_operand -> ID .)
+    TIMES_OP        reduce using rule 28 (ari_operand -> ID .)
+    OVER_OP         reduce using rule 28 (ari_operand -> ID .)
+    LINE_BREAK      reduce using rule 28 (ari_operand -> ID .)
+    $end            reduce using rule 28 (ari_operand -> ID .)
+    CONNECT_OP      reduce using rule 36 (graph_operand -> ID .)
+    DISCONNECT_OP   reduce using rule 36 (graph_operand -> ID .)
+    L_CONNECT_OP    reduce using rule 36 (graph_operand -> ID .)
+    R_CONNECT_OP    reduce using rule 36 (graph_operand -> ID .)
+    WEIGHT_OP       reduce using rule 36 (graph_operand -> ID .)
+    L_WEIGHT_OP     reduce using rule 36 (graph_operand -> ID .)
+    R_WEIGHT_OP     reduce using rule 36 (graph_operand -> ID .)
+
+  ! ASSIGN_OP       [ reduce using rule 20 (assignable -> ID .) ]
+  ! ASSIGN_OP       [ reduce using rule 28 (ari_operand -> ID .) ]
+  ! LINE_BREAK      [ reduce using rule 36 (graph_operand -> ID .) ]
+  ! $end            [ reduce using rule 36 (graph_operand -> ID .) ]
+  ! ASSIGN_OP       [ reduce using rule 36 (graph_operand -> ID .) ]
+  ! CONNECT_OP      [ reduce using rule 46 (node -> ID .) ]
+  ! DISCONNECT_OP   [ reduce using rule 46 (node -> ID .) ]
+  ! L_CONNECT_OP    [ reduce using rule 46 (node -> ID .) ]
+  ! R_CONNECT_OP    [ reduce using rule 46 (node -> ID .) ]
+  ! WEIGHT_OP       [ reduce using rule 46 (node -> ID .) ]
+  ! L_WEIGHT_OP     [ reduce using rule 46 (node -> ID .) ]
+  ! R_WEIGHT_OP     [ reduce using rule 46 (node -> ID .) ]
+  ! LINE_BREAK      [ reduce using rule 46 (node -> ID .) ]
+  ! $end            [ reduce using rule 46 (node -> ID .) ]
+  ! ASSIGN_OP       [ reduce using rule 46 (node -> ID .) ]
+  ! ASSIGN_OP       [ reduce using rule 55 (graph -> ID .) ]
+
+
+state 11
+
+    (15) type_expression -> L_BRACKET . TYPE R_BRACKET ID
+
+    TYPE            shift and go to state 46
+
+
+state 12
+
+    (18) assignment_expression -> assignable . ASSIGN_OP type_expression
+    (19) assignment_expression -> assignable . ASSIGN_OP ID
+
+    ASSIGN_OP       shift and go to state 47
+
+
+state 13
+
+    (24) arithmetic_expression -> ari_operand . ari_operator arithmetic_expression
+    (25) arithmetic_expression -> ari_operand .
+    (29) ari_operator -> . PLUS_OP
+    (30) ari_operator -> . MINUS_OP
+    (31) ari_operator -> . TIMES_OP
+    (32) ari_operator -> . OVER_OP
+
+    LINE_BREAK      reduce using rule 25 (arithmetic_expression -> ari_operand .)
+    $end            reduce using rule 25 (arithmetic_expression -> ari_operand .)
+    ASSIGN_OP       reduce using rule 25 (arithmetic_expression -> ari_operand .)
+    PLUS_OP         shift and go to state 49
+    MINUS_OP        shift and go to state 50
+    TIMES_OP        shift and go to state 51
+    OVER_OP         shift and go to state 52
+
+    ari_operator                   shift and go to state 48
+
+state 14
+
+    (33) graph_expression -> graph_operand . graph_operator graph_expression
+    (34) graph_expression -> graph_operand .
+    (37) graph_operator -> . CONNECT_OP
+    (38) graph_operator -> . DISCONNECT_OP
+    (39) graph_operator -> . L_CONNECT_OP
+    (40) graph_operator -> . R_CONNECT_OP
+    (41) graph_operator -> . WEIGHT_OP
+    (42) graph_operator -> . L_WEIGHT_OP
+    (43) graph_operator -> . R_WEIGHT_OP
+
+    LINE_BREAK      reduce using rule 34 (graph_expression -> graph_operand .)
+    $end            reduce using rule 34 (graph_expression -> graph_operand .)
+    ASSIGN_OP       reduce using rule 34 (graph_expression -> graph_operand .)
+    CONNECT_OP      shift and go to state 54
+    DISCONNECT_OP   shift and go to state 55
+    L_CONNECT_OP    shift and go to state 56
+    R_CONNECT_OP    shift and go to state 57
+    WEIGHT_OP       shift and go to state 58
+    L_WEIGHT_OP     shift and go to state 59
+    R_WEIGHT_OP     shift and go to state 60
+
+    graph_operator                 shift and go to state 53
+
+state 15
+
+    (56) function_call -> add .
+
+    LINE_BREAK      reduce using rule 56 (function_call -> add .)
+    $end            reduce using rule 56 (function_call -> add .)
+
+
+state 16
+
+    (57) function_call -> remove .
+
+    LINE_BREAK      reduce using rule 57 (function_call -> remove .)
+    $end            reduce using rule 57 (function_call -> remove .)
+
+
+state 17
+
+    (58) function_call -> join .
+
+    LINE_BREAK      reduce using rule 58 (function_call -> join .)
+    $end            reduce using rule 58 (function_call -> join .)
+
+
+state 18
+
+    (59) function_call -> subtract .
+
+    LINE_BREAK      reduce using rule 59 (function_call -> subtract .)
+    $end            reduce using rule 59 (function_call -> subtract .)
+
+
+state 19
+
+    (60) function_call -> intersect .
+
+    LINE_BREAK      reduce using rule 60 (function_call -> intersect .)
+    $end            reduce using rule 60 (function_call -> intersect .)
+
+
+state 20
+
+    (61) function_call -> reverse .
+
+    LINE_BREAK      reduce using rule 61 (function_call -> reverse .)
+    $end            reduce using rule 61 (function_call -> reverse .)
+
+
+state 21
+
+    (62) function_call -> disconnect .
+
+    LINE_BREAK      reduce using rule 62 (function_call -> disconnect .)
+    $end            reduce using rule 62 (function_call -> disconnect .)
+
+
+state 22
+
+    (63) function_call -> connect_all .
+
+    LINE_BREAK      reduce using rule 63 (function_call -> connect_all .)
+    $end            reduce using rule 63 (function_call -> connect_all .)
+
+
+state 23
+
+    (64) function_call -> path_find .
+
+    LINE_BREAK      reduce using rule 64 (function_call -> path_find .)
+    $end            reduce using rule 64 (function_call -> path_find .)
+
+
+state 24
+
+    (21) assignable -> plain_value .
+
+    ASSIGN_OP       reduce using rule 21 (assignable -> plain_value .)
+    LINE_BREAK      reduce using rule 21 (assignable -> plain_value .)
+    $end            reduce using rule 21 (assignable -> plain_value .)
+
+
+state 25
+
+    (26) ari_operand -> INTEGER .
+    (9) plain_value -> INTEGER .
+
+  ! reduce/reduce conflict for ASSIGN_OP resolved using rule 9 (plain_value -> INTEGER .)
+    PLUS_OP         reduce using rule 26 (ari_operand -> INTEGER .)
+    MINUS_OP        reduce using rule 26 (ari_operand -> INTEGER .)
+    TIMES_OP        reduce using rule 26 (ari_operand -> INTEGER .)
+    OVER_OP         reduce using rule 26 (ari_operand -> INTEGER .)
+    LINE_BREAK      reduce using rule 26 (ari_operand -> INTEGER .)
+    $end            reduce using rule 26 (ari_operand -> INTEGER .)
+    ASSIGN_OP       reduce using rule 9 (plain_value -> INTEGER .)
+
+  ! ASSIGN_OP       [ reduce using rule 26 (ari_operand -> INTEGER .) ]
+
+
+state 26
+
+    (27) ari_operand -> DECIMAL .
+    (10) plain_value -> DECIMAL .
+
+  ! reduce/reduce conflict for ASSIGN_OP resolved using rule 10 (plain_value -> DECIMAL .)
+    PLUS_OP         reduce using rule 27 (ari_operand -> DECIMAL .)
+    MINUS_OP        reduce using rule 27 (ari_operand -> DECIMAL .)
+    TIMES_OP        reduce using rule 27 (ari_operand -> DECIMAL .)
+    OVER_OP         reduce using rule 27 (ari_operand -> DECIMAL .)
+    LINE_BREAK      reduce using rule 27 (ari_operand -> DECIMAL .)
+    $end            reduce using rule 27 (ari_operand -> DECIMAL .)
+    ASSIGN_OP       reduce using rule 10 (plain_value -> DECIMAL .)
+
+  ! ASSIGN_OP       [ reduce using rule 27 (ari_operand -> DECIMAL .) ]
+
+
+state 27
+
+    (35) graph_operand -> node .
+    (12) plain_value -> node .
+
+  ! reduce/reduce conflict for ASSIGN_OP resolved using rule 12 (plain_value -> node .)
+    CONNECT_OP      reduce using rule 35 (graph_operand -> node .)
+    DISCONNECT_OP   reduce using rule 35 (graph_operand -> node .)
+    L_CONNECT_OP    reduce using rule 35 (graph_operand -> node .)
+    R_CONNECT_OP    reduce using rule 35 (graph_operand -> node .)
+    WEIGHT_OP       reduce using rule 35 (graph_operand -> node .)
+    L_WEIGHT_OP     reduce using rule 35 (graph_operand -> node .)
+    R_WEIGHT_OP     reduce using rule 35 (graph_operand -> node .)
+    LINE_BREAK      reduce using rule 35 (graph_operand -> node .)
+    $end            reduce using rule 35 (graph_operand -> node .)
+    ASSIGN_OP       reduce using rule 12 (plain_value -> node .)
+
+  ! ASSIGN_OP       [ reduce using rule 35 (graph_operand -> node .) ]
+
+
+state 28
+
+    (65) add -> ADD_FUNC . L_PARENTHESIS graph COMMA node_list R_PARENTHESIS
+
+    L_PARENTHESIS   shift and go to state 61
+
+
+state 29
+
+    (13) plain_value -> graph .
+
+    ASSIGN_OP       reduce using rule 13 (plain_value -> graph .)
+    R_PARENTHESIS   reduce using rule 13 (plain_value -> graph .)
+    LINE_BREAK      reduce using rule 13 (plain_value -> graph .)
+    $end            reduce using rule 13 (plain_value -> graph .)
+
+
+state 30
+
+    (66) remove -> REMOVE_FUNC . L_PARENTHESIS graph COMMA node_list R_PARENTHESIS
+
+    L_PARENTHESIS   shift and go to state 62
+
+
+state 31
+
+    (67) join -> JOIN_FUNC . L_PARENTHESIS graph COMMA graph R_PARENTHESIS
+
+    L_PARENTHESIS   shift and go to state 63
+
+
+state 32
+
+    (68) subtract -> SUBTRACT_FUNC . L_PARENTHESIS graph COMMA graph R_PARENTHESIS
+
+    L_PARENTHESIS   shift and go to state 64
+
+
+state 33
+
+    (69) intersect -> INTERSECT_FUNC . L_PARENTHESIS graph COMMA graph R_PARENTHESIS
+
+    L_PARENTHESIS   shift and go to state 65
+
+
+state 34
+
+    (70) reverse -> REVERSE_FUNC . L_PARENTHESIS graph R_PARENTHESIS
+
+    L_PARENTHESIS   shift and go to state 66
+
+
+state 35
+
+    (71) disconnect -> DISCONNECT_FUNC . L_PARENTHESIS graph R_PARENTHESIS
+
+    L_PARENTHESIS   shift and go to state 67
+
+
+state 36
+
+    (72) connect_all -> CONNECT_ALL_FUNC . L_PARENTHESIS graph R_PARENTHESIS
+
+    L_PARENTHESIS   shift and go to state 68
+
+
+state 37
+
+    (73) path_find -> PATH_FIND_FUNC . L_PARENTHESIS node COMMA node R_PARENTHESIS
+
+    L_PARENTHESIS   shift and go to state 69
+
+
+state 38
+
+    (11) plain_value -> STRING .
+
+    ASSIGN_OP       reduce using rule 11 (plain_value -> STRING .)
+    R_PARENTHESIS   reduce using rule 11 (plain_value -> STRING .)
+    LINE_BREAK      reduce using rule 11 (plain_value -> STRING .)
+    $end            reduce using rule 11 (plain_value -> STRING .)
+
+
+state 39
+
+    (44) node -> plain_node .
+    (45) node -> plain_node . node_connections
+    (49) node_connections -> . L_PARENTHESIS node_list R_PARENTHESIS
+    (50) node_connections -> . L_PARENTHESIS R_PARENTHESIS
+
+    CONNECT_OP      reduce using rule 44 (node -> plain_node .)
+    DISCONNECT_OP   reduce using rule 44 (node -> plain_node .)
+    L_CONNECT_OP    reduce using rule 44 (node -> plain_node .)
+    R_CONNECT_OP    reduce using rule 44 (node -> plain_node .)
+    WEIGHT_OP       reduce using rule 44 (node -> plain_node .)
+    L_WEIGHT_OP     reduce using rule 44 (node -> plain_node .)
+    R_WEIGHT_OP     reduce using rule 44 (node -> plain_node .)
+    LINE_BREAK      reduce using rule 44 (node -> plain_node .)
+    $end            reduce using rule 44 (node -> plain_node .)
+    ASSIGN_OP       reduce using rule 44 (node -> plain_node .)
+    R_BRACKET       reduce using rule 44 (node -> plain_node .)
+    COMMA           reduce using rule 44 (node -> plain_node .)
+    R_PARENTHESIS   reduce using rule 44 (node -> plain_node .)
+    L_PARENTHESIS   shift and go to state 71
+
+    node_connections               shift and go to state 70
+
+state 40
+
+    (53) graph -> G_BRACKET . node_list R_BRACKET
+    (54) graph -> G_BRACKET . R_BRACKET
+    (51) node_list -> . node_list COMMA node
+    (52) node_list -> . node
+    (44) node -> . plain_node
+    (45) node -> . plain_node node_connections
+    (46) node -> . ID
+    (47) plain_node -> . N_PARENTHESIS plain_value R_PARENTHESIS
+    (48) plain_node -> . N_PARENTHESIS R_PARENTHESIS
+
+    R_BRACKET       shift and go to state 73
+    ID              shift and go to state 75
+    N_PARENTHESIS   shift and go to state 41
+
+    node_list                      shift and go to state 72
+    node                           shift and go to state 74
+    plain_node                     shift and go to state 39
+
+state 41
+
+    (47) plain_node -> N_PARENTHESIS . plain_value R_PARENTHESIS
+    (48) plain_node -> N_PARENTHESIS . R_PARENTHESIS
+    (9) plain_value -> . INTEGER
+    (10) plain_value -> . DECIMAL
+    (11) plain_value -> . STRING
+    (12) plain_value -> . node
+    (13) plain_value -> . graph
+    (44) node -> . plain_node
+    (45) node -> . plain_node node_connections
+    (46) node -> . ID
+    (53) graph -> . G_BRACKET node_list R_BRACKET
+    (54) graph -> . G_BRACKET R_BRACKET
+    (55) graph -> . ID
+    (47) plain_node -> . N_PARENTHESIS plain_value R_PARENTHESIS
+    (48) plain_node -> . N_PARENTHESIS R_PARENTHESIS
+
+    R_PARENTHESIS   shift and go to state 77
+    INTEGER         shift and go to state 78
+    DECIMAL         shift and go to state 79
+    STRING          shift and go to state 38
+    ID              shift and go to state 81
+    G_BRACKET       shift and go to state 40
+    N_PARENTHESIS   shift and go to state 41
+
+    plain_value                    shift and go to state 76
+    node                           shift and go to state 80
+    graph                          shift and go to state 29
+    plain_node                     shift and go to state 39
+
+state 42
+
+    (2) lines -> lines LINE_BREAK . line
+    (4) line -> . type_expression
+    (5) line -> . assignment_expression
+    (6) line -> . arithmetic_expression
+    (7) line -> . graph_expression
+    (8) line -> . function_call
+    (14) type_expression -> . TYPE ID
+    (15) type_expression -> . L_BRACKET TYPE R_BRACKET ID
+    (16) assignment_expression -> . type_expression ASSIGN_OP assignable
+    (17) assignment_expression -> . ID ASSIGN_OP assignable
+    (18) assignment_expression -> . assignable ASSIGN_OP type_expression
+    (19) assignment_expression -> . assignable ASSIGN_OP ID
+    (24) arithmetic_expression -> . ari_operand ari_operator arithmetic_expression
+    (25) arithmetic_expression -> . ari_operand
+    (33) graph_expression -> . graph_operand graph_operator graph_expression
+    (34) graph_expression -> . graph_operand
+    (56) function_call -> . add
+    (57) function_call -> . remove
+    (58) function_call -> . join
+    (59) function_call -> . subtract
+    (60) function_call -> . intersect
+    (61) function_call -> . reverse
+    (62) function_call -> . disconnect
+    (63) function_call -> . connect_all
+    (64) function_call -> . path_find
+    (20) assignable -> . ID
+    (21) assignable -> . plain_value
+    (22) assignable -> . arithmetic_expression
+    (23) assignable -> . graph_expression
+    (26) ari_operand -> . INTEGER
+    (27) ari_operand -> . DECIMAL
+    (28) ari_operand -> . ID
+    (35) graph_operand -> . node
+    (36) graph_operand -> . ID
+    (65) add -> . ADD_FUNC L_PARENTHESIS graph COMMA node_list R_PARENTHESIS
+    (66) remove -> . REMOVE_FUNC L_PARENTHESIS graph COMMA node_list R_PARENTHESIS
+    (67) join -> . JOIN_FUNC L_PARENTHESIS graph COMMA graph R_PARENTHESIS
+    (68) subtract -> . SUBTRACT_FUNC L_PARENTHESIS graph COMMA graph R_PARENTHESIS
+    (69) intersect -> . INTERSECT_FUNC L_PARENTHESIS graph COMMA graph R_PARENTHESIS
+    (70) reverse -> . REVERSE_FUNC L_PARENTHESIS graph R_PARENTHESIS
+    (71) disconnect -> . DISCONNECT_FUNC L_PARENTHESIS graph R_PARENTHESIS
+    (72) connect_all -> . CONNECT_ALL_FUNC L_PARENTHESIS graph R_PARENTHESIS
+    (73) path_find -> . PATH_FIND_FUNC L_PARENTHESIS node COMMA node R_PARENTHESIS
+    (9) plain_value -> . INTEGER
+    (10) plain_value -> . DECIMAL
+    (11) plain_value -> . STRING
+    (12) plain_value -> . node
+    (13) plain_value -> . graph
+    (44) node -> . plain_node
+    (45) node -> . plain_node node_connections
+    (46) node -> . ID
+    (53) graph -> . G_BRACKET node_list R_BRACKET
+    (54) graph -> . G_BRACKET R_BRACKET
+    (55) graph -> . ID
+    (47) plain_node -> . N_PARENTHESIS plain_value R_PARENTHESIS
+    (48) plain_node -> . N_PARENTHESIS R_PARENTHESIS
+
+    TYPE            shift and go to state 9
+    L_BRACKET       shift and go to state 11
+    ID              shift and go to state 10
+    INTEGER         shift and go to state 25
+    DECIMAL         shift and go to state 26
+    ADD_FUNC        shift and go to state 28
+    REMOVE_FUNC     shift and go to state 30
+    JOIN_FUNC       shift and go to state 31
+    SUBTRACT_FUNC   shift and go to state 32
+    INTERSECT_FUNC  shift and go to state 33
+    REVERSE_FUNC    shift and go to state 34
+    DISCONNECT_FUNC shift and go to state 35
+    CONNECT_ALL_FUNC shift and go to state 36
+    PATH_FIND_FUNC  shift and go to state 37
+    STRING          shift and go to state 38
+    G_BRACKET       shift and go to state 40
+    N_PARENTHESIS   shift and go to state 41
+
+    line                           shift and go to state 82
+    type_expression                shift and go to state 4
+    assignment_expression          shift and go to state 5
+    arithmetic_expression          shift and go to state 6
+    graph_expression               shift and go to state 7
+    function_call                  shift and go to state 8
+    assignable                     shift and go to state 12
+    ari_operand                    shift and go to state 13
+    graph_operand                  shift and go to state 14
+    add                            shift and go to state 15
+    remove                         shift and go to state 16
+    join                           shift and go to state 17
+    subtract                       shift and go to state 18
+    intersect                      shift and go to state 19
+    reverse                        shift and go to state 20
+    disconnect                     shift and go to state 21
+    connect_all                    shift and go to state 22
+    path_find                      shift and go to state 23
+    plain_value                    shift and go to state 24
+    node                           shift and go to state 27
+    graph                          shift and go to state 29
+    plain_node                     shift and go to state 39
+
+state 43
+
+    (16) assignment_expression -> type_expression ASSIGN_OP . assignable
+    (20) assignable -> . ID
+    (21) assignable -> . plain_value
+    (22) assignable -> . arithmetic_expression
+    (23) assignable -> . graph_expression
+    (9) plain_value -> . INTEGER
+    (10) plain_value -> . DECIMAL
+    (11) plain_value -> . STRING
+    (12) plain_value -> . node
+    (13) plain_value -> . graph
+    (24) arithmetic_expression -> . ari_operand ari_operator arithmetic_expression
+    (25) arithmetic_expression -> . ari_operand
+    (33) graph_expression -> . graph_operand graph_operator graph_expression
+    (34) graph_expression -> . graph_operand
+    (44) node -> . plain_node
+    (45) node -> . plain_node node_connections
+    (46) node -> . ID
+    (53) graph -> . G_BRACKET node_list R_BRACKET
+    (54) graph -> . G_BRACKET R_BRACKET
+    (55) graph -> . ID
+    (26) ari_operand -> . INTEGER
+    (27) ari_operand -> . DECIMAL
+    (28) ari_operand -> . ID
+    (35) graph_operand -> . node
+    (36) graph_operand -> . ID
+    (47) plain_node -> . N_PARENTHESIS plain_value R_PARENTHESIS
+    (48) plain_node -> . N_PARENTHESIS R_PARENTHESIS
+
+    ID              shift and go to state 84
+    INTEGER         shift and go to state 87
+    DECIMAL         shift and go to state 88
+    STRING          shift and go to state 38
+    G_BRACKET       shift and go to state 40
+    N_PARENTHESIS   shift and go to state 41
+
+    assignable                     shift and go to state 83
+    plain_value                    shift and go to state 24
+    arithmetic_expression          shift and go to state 85
+    graph_expression               shift and go to state 86
+    node                           shift and go to state 89
+    graph                          shift and go to state 29
+    ari_operand                    shift and go to state 13
+    graph_operand                  shift and go to state 14
+    plain_node                     shift and go to state 39
+
+state 44
+
+    (14) type_expression -> TYPE ID .
+
+    ASSIGN_OP       reduce using rule 14 (type_expression -> TYPE ID .)
+    LINE_BREAK      reduce using rule 14 (type_expression -> TYPE ID .)
+    $end            reduce using rule 14 (type_expression -> TYPE ID .)
+
+
+state 45
+
+    (17) assignment_expression -> ID ASSIGN_OP . assignable
+    (20) assignable -> . ID
+    (21) assignable -> . plain_value
+    (22) assignable -> . arithmetic_expression
+    (23) assignable -> . graph_expression
+    (9) plain_value -> . INTEGER
+    (10) plain_value -> . DECIMAL
+    (11) plain_value -> . STRING
+    (12) plain_value -> . node
+    (13) plain_value -> . graph
+    (24) arithmetic_expression -> . ari_operand ari_operator arithmetic_expression
+    (25) arithmetic_expression -> . ari_operand
+    (33) graph_expression -> . graph_operand graph_operator graph_expression
+    (34) graph_expression -> . graph_operand
+    (44) node -> . plain_node
+    (45) node -> . plain_node node_connections
+    (46) node -> . ID
+    (53) graph -> . G_BRACKET node_list R_BRACKET
+    (54) graph -> . G_BRACKET R_BRACKET
+    (55) graph -> . ID
+    (26) ari_operand -> . INTEGER
+    (27) ari_operand -> . DECIMAL
+    (28) ari_operand -> . ID
+    (35) graph_operand -> . node
+    (36) graph_operand -> . ID
+    (47) plain_node -> . N_PARENTHESIS plain_value R_PARENTHESIS
+    (48) plain_node -> . N_PARENTHESIS R_PARENTHESIS
+
+    ID              shift and go to state 84
+    INTEGER         shift and go to state 87
+    DECIMAL         shift and go to state 88
+    STRING          shift and go to state 38
+    G_BRACKET       shift and go to state 40
+    N_PARENTHESIS   shift and go to state 41
+
+    assignable                     shift and go to state 90
+    plain_value                    shift and go to state 24
+    arithmetic_expression          shift and go to state 85
+    graph_expression               shift and go to state 86
+    node                           shift and go to state 89
+    graph                          shift and go to state 29
+    ari_operand                    shift and go to state 13
+    graph_operand                  shift and go to state 14
+    plain_node                     shift and go to state 39
+
+state 46
+
+    (15) type_expression -> L_BRACKET TYPE . R_BRACKET ID
+
+    R_BRACKET       shift and go to state 91
+
+
+state 47
+
+    (18) assignment_expression -> assignable ASSIGN_OP . type_expression
+    (19) assignment_expression -> assignable ASSIGN_OP . ID
+    (14) type_expression -> . TYPE ID
+    (15) type_expression -> . L_BRACKET TYPE R_BRACKET ID
+
+    ID              shift and go to state 93
+    TYPE            shift and go to state 9
+    L_BRACKET       shift and go to state 11
+
+    type_expression                shift and go to state 92
+
+state 48
+
+    (24) arithmetic_expression -> ari_operand ari_operator . arithmetic_expression
+    (24) arithmetic_expression -> . ari_operand ari_operator arithmetic_expression
+    (25) arithmetic_expression -> . ari_operand
+    (26) ari_operand -> . INTEGER
+    (27) ari_operand -> . DECIMAL
+    (28) ari_operand -> . ID
+
+    INTEGER         shift and go to state 95
+    DECIMAL         shift and go to state 96
+    ID              shift and go to state 97
+
+    ari_operand                    shift and go to state 13
+    arithmetic_expression          shift and go to state 94
+
+state 49
+
+    (29) ari_operator -> PLUS_OP .
+
+    INTEGER         reduce using rule 29 (ari_operator -> PLUS_OP .)
+    DECIMAL         reduce using rule 29 (ari_operator -> PLUS_OP .)
+    ID              reduce using rule 29 (ari_operator -> PLUS_OP .)
+
+
+state 50
+
+    (30) ari_operator -> MINUS_OP .
+
+    INTEGER         reduce using rule 30 (ari_operator -> MINUS_OP .)
+    DECIMAL         reduce using rule 30 (ari_operator -> MINUS_OP .)
+    ID              reduce using rule 30 (ari_operator -> MINUS_OP .)
+
+
+state 51
+
+    (31) ari_operator -> TIMES_OP .
+
+    INTEGER         reduce using rule 31 (ari_operator -> TIMES_OP .)
+    DECIMAL         reduce using rule 31 (ari_operator -> TIMES_OP .)
+    ID              reduce using rule 31 (ari_operator -> TIMES_OP .)
+
+
+state 52
+
+    (32) ari_operator -> OVER_OP .
+
+    INTEGER         reduce using rule 32 (ari_operator -> OVER_OP .)
+    DECIMAL         reduce using rule 32 (ari_operator -> OVER_OP .)
+    ID              reduce using rule 32 (ari_operator -> OVER_OP .)
+
+
+state 53
+
+    (33) graph_expression -> graph_operand graph_operator . graph_expression
+    (33) graph_expression -> . graph_operand graph_operator graph_expression
+    (34) graph_expression -> . graph_operand
+    (35) graph_operand -> . node
+    (36) graph_operand -> . ID
+    (44) node -> . plain_node
+    (45) node -> . plain_node node_connections
+    (46) node -> . ID
+    (47) plain_node -> . N_PARENTHESIS plain_value R_PARENTHESIS
+    (48) plain_node -> . N_PARENTHESIS R_PARENTHESIS
+
+    ID              shift and go to state 100
+    N_PARENTHESIS   shift and go to state 41
+
+    graph_operand                  shift and go to state 14
+    graph_expression               shift and go to state 98
+    node                           shift and go to state 99
+    plain_node                     shift and go to state 39
+
+state 54
+
+    (37) graph_operator -> CONNECT_OP .
+
+    ID              reduce using rule 37 (graph_operator -> CONNECT_OP .)
+    N_PARENTHESIS   reduce using rule 37 (graph_operator -> CONNECT_OP .)
+
+
+state 55
+
+    (38) graph_operator -> DISCONNECT_OP .
+
+    ID              reduce using rule 38 (graph_operator -> DISCONNECT_OP .)
+    N_PARENTHESIS   reduce using rule 38 (graph_operator -> DISCONNECT_OP .)
+
+
+state 56
+
+    (39) graph_operator -> L_CONNECT_OP .
+
+    ID              reduce using rule 39 (graph_operator -> L_CONNECT_OP .)
+    N_PARENTHESIS   reduce using rule 39 (graph_operator -> L_CONNECT_OP .)
+
+
+state 57
+
+    (40) graph_operator -> R_CONNECT_OP .
+
+    ID              reduce using rule 40 (graph_operator -> R_CONNECT_OP .)
+    N_PARENTHESIS   reduce using rule 40 (graph_operator -> R_CONNECT_OP .)
+
+
+state 58
+
+    (41) graph_operator -> WEIGHT_OP .
+
+    ID              reduce using rule 41 (graph_operator -> WEIGHT_OP .)
+    N_PARENTHESIS   reduce using rule 41 (graph_operator -> WEIGHT_OP .)
+
+
+state 59
+
+    (42) graph_operator -> L_WEIGHT_OP .
+
+    ID              reduce using rule 42 (graph_operator -> L_WEIGHT_OP .)
+    N_PARENTHESIS   reduce using rule 42 (graph_operator -> L_WEIGHT_OP .)
+
+
+state 60
+
+    (43) graph_operator -> R_WEIGHT_OP .
+
+    ID              reduce using rule 43 (graph_operator -> R_WEIGHT_OP .)
+    N_PARENTHESIS   reduce using rule 43 (graph_operator -> R_WEIGHT_OP .)
+
+
+state 61
+
+    (65) add -> ADD_FUNC L_PARENTHESIS . graph COMMA node_list R_PARENTHESIS
+    (53) graph -> . G_BRACKET node_list R_BRACKET
+    (54) graph -> . G_BRACKET R_BRACKET
+    (55) graph -> . ID
+
+    G_BRACKET       shift and go to state 40
+    ID              shift and go to state 102
+
+    graph                          shift and go to state 101
+
+state 62
+
+    (66) remove -> REMOVE_FUNC L_PARENTHESIS . graph COMMA node_list R_PARENTHESIS
+    (53) graph -> . G_BRACKET node_list R_BRACKET
+    (54) graph -> . G_BRACKET R_BRACKET
+    (55) graph -> . ID
+
+    G_BRACKET       shift and go to state 40
+    ID              shift and go to state 102
+
+    graph                          shift and go to state 103
+
+state 63
+
+    (67) join -> JOIN_FUNC L_PARENTHESIS . graph COMMA graph R_PARENTHESIS
+    (53) graph -> . G_BRACKET node_list R_BRACKET
+    (54) graph -> . G_BRACKET R_BRACKET
+    (55) graph -> . ID
+
+    G_BRACKET       shift and go to state 40
+    ID              shift and go to state 102
+
+    graph                          shift and go to state 104
+
+state 64
+
+    (68) subtract -> SUBTRACT_FUNC L_PARENTHESIS . graph COMMA graph R_PARENTHESIS
+    (53) graph -> . G_BRACKET node_list R_BRACKET
+    (54) graph -> . G_BRACKET R_BRACKET
+    (55) graph -> . ID
+
+    G_BRACKET       shift and go to state 40
+    ID              shift and go to state 102
+
+    graph                          shift and go to state 105
+
+state 65
+
+    (69) intersect -> INTERSECT_FUNC L_PARENTHESIS . graph COMMA graph R_PARENTHESIS
+    (53) graph -> . G_BRACKET node_list R_BRACKET
+    (54) graph -> . G_BRACKET R_BRACKET
+    (55) graph -> . ID
+
+    G_BRACKET       shift and go to state 40
+    ID              shift and go to state 102
+
+    graph                          shift and go to state 106
+
+state 66
+
+    (70) reverse -> REVERSE_FUNC L_PARENTHESIS . graph R_PARENTHESIS
+    (53) graph -> . G_BRACKET node_list R_BRACKET
+    (54) graph -> . G_BRACKET R_BRACKET
+    (55) graph -> . ID
+
+    G_BRACKET       shift and go to state 40
+    ID              shift and go to state 102
+
+    graph                          shift and go to state 107
+
+state 67
+
+    (71) disconnect -> DISCONNECT_FUNC L_PARENTHESIS . graph R_PARENTHESIS
+    (53) graph -> . G_BRACKET node_list R_BRACKET
+    (54) graph -> . G_BRACKET R_BRACKET
+    (55) graph -> . ID
+
+    G_BRACKET       shift and go to state 40
+    ID              shift and go to state 102
+
+    graph                          shift and go to state 108
+
+state 68
+
+    (72) connect_all -> CONNECT_ALL_FUNC L_PARENTHESIS . graph R_PARENTHESIS
+    (53) graph -> . G_BRACKET node_list R_BRACKET
+    (54) graph -> . G_BRACKET R_BRACKET
+    (55) graph -> . ID
+
+    G_BRACKET       shift and go to state 40
+    ID              shift and go to state 102
+
+    graph                          shift and go to state 109
+
+state 69
+
+    (73) path_find -> PATH_FIND_FUNC L_PARENTHESIS . node COMMA node R_PARENTHESIS
+    (44) node -> . plain_node
+    (45) node -> . plain_node node_connections
+    (46) node -> . ID
+    (47) plain_node -> . N_PARENTHESIS plain_value R_PARENTHESIS
+    (48) plain_node -> . N_PARENTHESIS R_PARENTHESIS
+
+    ID              shift and go to state 75
+    N_PARENTHESIS   shift and go to state 41
+
+    node                           shift and go to state 110
+    plain_node                     shift and go to state 39
+
+state 70
+
+    (45) node -> plain_node node_connections .
+
+    CONNECT_OP      reduce using rule 45 (node -> plain_node node_connections .)
+    DISCONNECT_OP   reduce using rule 45 (node -> plain_node node_connections .)
+    L_CONNECT_OP    reduce using rule 45 (node -> plain_node node_connections .)
+    R_CONNECT_OP    reduce using rule 45 (node -> plain_node node_connections .)
+    WEIGHT_OP       reduce using rule 45 (node -> plain_node node_connections .)
+    L_WEIGHT_OP     reduce using rule 45 (node -> plain_node node_connections .)
+    R_WEIGHT_OP     reduce using rule 45 (node -> plain_node node_connections .)
+    LINE_BREAK      reduce using rule 45 (node -> plain_node node_connections .)
+    $end            reduce using rule 45 (node -> plain_node node_connections .)
+    ASSIGN_OP       reduce using rule 45 (node -> plain_node node_connections .)
+    R_BRACKET       reduce using rule 45 (node -> plain_node node_connections .)
+    COMMA           reduce using rule 45 (node -> plain_node node_connections .)
+    R_PARENTHESIS   reduce using rule 45 (node -> plain_node node_connections .)
+
+
+state 71
+
+    (49) node_connections -> L_PARENTHESIS . node_list R_PARENTHESIS
+    (50) node_connections -> L_PARENTHESIS . R_PARENTHESIS
+    (51) node_list -> . node_list COMMA node
+    (52) node_list -> . node
+    (44) node -> . plain_node
+    (45) node -> . plain_node node_connections
+    (46) node -> . ID
+    (47) plain_node -> . N_PARENTHESIS plain_value R_PARENTHESIS
+    (48) plain_node -> . N_PARENTHESIS R_PARENTHESIS
+
+    R_PARENTHESIS   shift and go to state 112
+    ID              shift and go to state 75
+    N_PARENTHESIS   shift and go to state 41
+
+    node_list                      shift and go to state 111
+    node                           shift and go to state 74
+    plain_node                     shift and go to state 39
+
+state 72
+
+    (53) graph -> G_BRACKET node_list . R_BRACKET
+    (51) node_list -> node_list . COMMA node
+
+    R_BRACKET       shift and go to state 113
+    COMMA           shift and go to state 114
+
+
+state 73
+
+    (54) graph -> G_BRACKET R_BRACKET .
+
+    ASSIGN_OP       reduce using rule 54 (graph -> G_BRACKET R_BRACKET .)
+    R_PARENTHESIS   reduce using rule 54 (graph -> G_BRACKET R_BRACKET .)
+    LINE_BREAK      reduce using rule 54 (graph -> G_BRACKET R_BRACKET .)
+    $end            reduce using rule 54 (graph -> G_BRACKET R_BRACKET .)
+    COMMA           reduce using rule 54 (graph -> G_BRACKET R_BRACKET .)
+
+
+state 74
+
+    (52) node_list -> node .
+
+    R_BRACKET       reduce using rule 52 (node_list -> node .)
+    COMMA           reduce using rule 52 (node_list -> node .)
+    R_PARENTHESIS   reduce using rule 52 (node_list -> node .)
+
+
+state 75
+
+    (46) node -> ID .
+
+    R_BRACKET       reduce using rule 46 (node -> ID .)
+    COMMA           reduce using rule 46 (node -> ID .)
+    R_PARENTHESIS   reduce using rule 46 (node -> ID .)
+
+
+state 76
+
+    (47) plain_node -> N_PARENTHESIS plain_value . R_PARENTHESIS
+
+    R_PARENTHESIS   shift and go to state 115
+
+
+state 77
+
+    (48) plain_node -> N_PARENTHESIS R_PARENTHESIS .
+
+    L_PARENTHESIS   reduce using rule 48 (plain_node -> N_PARENTHESIS R_PARENTHESIS .)
+    CONNECT_OP      reduce using rule 48 (plain_node -> N_PARENTHESIS R_PARENTHESIS .)
+    DISCONNECT_OP   reduce using rule 48 (plain_node -> N_PARENTHESIS R_PARENTHESIS .)
+    L_CONNECT_OP    reduce using rule 48 (plain_node -> N_PARENTHESIS R_PARENTHESIS .)
+    R_CONNECT_OP    reduce using rule 48 (plain_node -> N_PARENTHESIS R_PARENTHESIS .)
+    WEIGHT_OP       reduce using rule 48 (plain_node -> N_PARENTHESIS R_PARENTHESIS .)
+    L_WEIGHT_OP     reduce using rule 48 (plain_node -> N_PARENTHESIS R_PARENTHESIS .)
+    R_WEIGHT_OP     reduce using rule 48 (plain_node -> N_PARENTHESIS R_PARENTHESIS .)
+    LINE_BREAK      reduce using rule 48 (plain_node -> N_PARENTHESIS R_PARENTHESIS .)
+    $end            reduce using rule 48 (plain_node -> N_PARENTHESIS R_PARENTHESIS .)
+    ASSIGN_OP       reduce using rule 48 (plain_node -> N_PARENTHESIS R_PARENTHESIS .)
+    R_BRACKET       reduce using rule 48 (plain_node -> N_PARENTHESIS R_PARENTHESIS .)
+    COMMA           reduce using rule 48 (plain_node -> N_PARENTHESIS R_PARENTHESIS .)
+    R_PARENTHESIS   reduce using rule 48 (plain_node -> N_PARENTHESIS R_PARENTHESIS .)
+
+
+state 78
+
+    (9) plain_value -> INTEGER .
+
+    R_PARENTHESIS   reduce using rule 9 (plain_value -> INTEGER .)
+
+
+state 79
+
+    (10) plain_value -> DECIMAL .
+
+    R_PARENTHESIS   reduce using rule 10 (plain_value -> DECIMAL .)
+
+
+state 80
+
+    (12) plain_value -> node .
+
+    R_PARENTHESIS   reduce using rule 12 (plain_value -> node .)
+
+
+state 81
+
+    (46) node -> ID .
+    (55) graph -> ID .
+
+  ! reduce/reduce conflict for R_PARENTHESIS resolved using rule 46 (node -> ID .)
+    R_PARENTHESIS   reduce using rule 46 (node -> ID .)
+
+  ! R_PARENTHESIS   [ reduce using rule 55 (graph -> ID .) ]
+
+
+state 82
+
+    (2) lines -> lines LINE_BREAK line .
+
+    LINE_BREAK      reduce using rule 2 (lines -> lines LINE_BREAK line .)
+    $end            reduce using rule 2 (lines -> lines LINE_BREAK line .)
+
+
+state 83
+
+    (16) assignment_expression -> type_expression ASSIGN_OP assignable .
+
+    LINE_BREAK      reduce using rule 16 (assignment_expression -> type_expression ASSIGN_OP assignable .)
+    $end            reduce using rule 16 (assignment_expression -> type_expression ASSIGN_OP assignable .)
+
+
+state 84
+
+    (20) assignable -> ID .
+    (46) node -> ID .
+    (55) graph -> ID .
+    (28) ari_operand -> ID .
+    (36) graph_operand -> ID .
+
+  ! reduce/reduce conflict for LINE_BREAK resolved using rule 20 (assignable -> ID .)
+  ! reduce/reduce conflict for $end resolved using rule 20 (assignable -> ID .)
+  ! reduce/reduce conflict for LINE_BREAK resolved using rule 20 (assignable -> ID .)
+  ! reduce/reduce conflict for $end resolved using rule 20 (assignable -> ID .)
+  ! reduce/reduce conflict for LINE_BREAK resolved using rule 20 (assignable -> ID .)
+  ! reduce/reduce conflict for $end resolved using rule 20 (assignable -> ID .)
+  ! reduce/reduce conflict for CONNECT_OP resolved using rule 36 (graph_operand -> ID .)
+  ! reduce/reduce conflict for DISCONNECT_OP resolved using rule 36 (graph_operand -> ID .)
+  ! reduce/reduce conflict for L_CONNECT_OP resolved using rule 36 (graph_operand -> ID .)
+  ! reduce/reduce conflict for R_CONNECT_OP resolved using rule 36 (graph_operand -> ID .)
+  ! reduce/reduce conflict for WEIGHT_OP resolved using rule 36 (graph_operand -> ID .)
+  ! reduce/reduce conflict for L_WEIGHT_OP resolved using rule 36 (graph_operand -> ID .)
+  ! reduce/reduce conflict for R_WEIGHT_OP resolved using rule 36 (graph_operand -> ID .)
+  ! reduce/reduce conflict for LINE_BREAK resolved using rule 20 (assignable -> ID .)
+  ! reduce/reduce conflict for $end resolved using rule 20 (assignable -> ID .)
+    LINE_BREAK      reduce using rule 20 (assignable -> ID .)
+    $end            reduce using rule 20 (assignable -> ID .)
+    PLUS_OP         reduce using rule 28 (ari_operand -> ID .)
+    MINUS_OP        reduce using rule 28 (ari_operand -> ID .)
+    TIMES_OP        reduce using rule 28 (ari_operand -> ID .)
+    OVER_OP         reduce using rule 28 (ari_operand -> ID .)
+    CONNECT_OP      reduce using rule 36 (graph_operand -> ID .)
+    DISCONNECT_OP   reduce using rule 36 (graph_operand -> ID .)
+    L_CONNECT_OP    reduce using rule 36 (graph_operand -> ID .)
+    R_CONNECT_OP    reduce using rule 36 (graph_operand -> ID .)
+    WEIGHT_OP       reduce using rule 36 (graph_operand -> ID .)
+    L_WEIGHT_OP     reduce using rule 36 (graph_operand -> ID .)
+    R_WEIGHT_OP     reduce using rule 36 (graph_operand -> ID .)
+
+  ! LINE_BREAK      [ reduce using rule 46 (node -> ID .) ]
+  ! $end            [ reduce using rule 46 (node -> ID .) ]
+  ! CONNECT_OP      [ reduce using rule 46 (node -> ID .) ]
+  ! DISCONNECT_OP   [ reduce using rule 46 (node -> ID .) ]
+  ! L_CONNECT_OP    [ reduce using rule 46 (node -> ID .) ]
+  ! R_CONNECT_OP    [ reduce using rule 46 (node -> ID .) ]
+  ! WEIGHT_OP       [ reduce using rule 46 (node -> ID .) ]
+  ! L_WEIGHT_OP     [ reduce using rule 46 (node -> ID .) ]
+  ! R_WEIGHT_OP     [ reduce using rule 46 (node -> ID .) ]
+  ! LINE_BREAK      [ reduce using rule 55 (graph -> ID .) ]
+  ! $end            [ reduce using rule 55 (graph -> ID .) ]
+  ! LINE_BREAK      [ reduce using rule 28 (ari_operand -> ID .) ]
+  ! $end            [ reduce using rule 28 (ari_operand -> ID .) ]
+  ! LINE_BREAK      [ reduce using rule 36 (graph_operand -> ID .) ]
+  ! $end            [ reduce using rule 36 (graph_operand -> ID .) ]
+
+
+state 85
+
+    (22) assignable -> arithmetic_expression .
+
+    LINE_BREAK      reduce using rule 22 (assignable -> arithmetic_expression .)
+    $end            reduce using rule 22 (assignable -> arithmetic_expression .)
+
+
+state 86
+
+    (23) assignable -> graph_expression .
+
+    LINE_BREAK      reduce using rule 23 (assignable -> graph_expression .)
+    $end            reduce using rule 23 (assignable -> graph_expression .)
+
+
+state 87
+
+    (9) plain_value -> INTEGER .
+    (26) ari_operand -> INTEGER .
+
+  ! reduce/reduce conflict for LINE_BREAK resolved using rule 9 (plain_value -> INTEGER .)
+  ! reduce/reduce conflict for $end resolved using rule 9 (plain_value -> INTEGER .)
+    LINE_BREAK      reduce using rule 9 (plain_value -> INTEGER .)
+    $end            reduce using rule 9 (plain_value -> INTEGER .)
+    PLUS_OP         reduce using rule 26 (ari_operand -> INTEGER .)
+    MINUS_OP        reduce using rule 26 (ari_operand -> INTEGER .)
+    TIMES_OP        reduce using rule 26 (ari_operand -> INTEGER .)
+    OVER_OP         reduce using rule 26 (ari_operand -> INTEGER .)
+
+  ! LINE_BREAK      [ reduce using rule 26 (ari_operand -> INTEGER .) ]
+  ! $end            [ reduce using rule 26 (ari_operand -> INTEGER .) ]
+
+
+state 88
+
+    (10) plain_value -> DECIMAL .
+    (27) ari_operand -> DECIMAL .
+
+  ! reduce/reduce conflict for LINE_BREAK resolved using rule 10 (plain_value -> DECIMAL .)
+  ! reduce/reduce conflict for $end resolved using rule 10 (plain_value -> DECIMAL .)
+    LINE_BREAK      reduce using rule 10 (plain_value -> DECIMAL .)
+    $end            reduce using rule 10 (plain_value -> DECIMAL .)
+    PLUS_OP         reduce using rule 27 (ari_operand -> DECIMAL .)
+    MINUS_OP        reduce using rule 27 (ari_operand -> DECIMAL .)
+    TIMES_OP        reduce using rule 27 (ari_operand -> DECIMAL .)
+    OVER_OP         reduce using rule 27 (ari_operand -> DECIMAL .)
+
+  ! LINE_BREAK      [ reduce using rule 27 (ari_operand -> DECIMAL .) ]
+  ! $end            [ reduce using rule 27 (ari_operand -> DECIMAL .) ]
+
+
+state 89
+
+    (12) plain_value -> node .
+    (35) graph_operand -> node .
+
+  ! reduce/reduce conflict for LINE_BREAK resolved using rule 12 (plain_value -> node .)
+  ! reduce/reduce conflict for $end resolved using rule 12 (plain_value -> node .)
+    LINE_BREAK      reduce using rule 12 (plain_value -> node .)
+    $end            reduce using rule 12 (plain_value -> node .)
+    CONNECT_OP      reduce using rule 35 (graph_operand -> node .)
+    DISCONNECT_OP   reduce using rule 35 (graph_operand -> node .)
+    L_CONNECT_OP    reduce using rule 35 (graph_operand -> node .)
+    R_CONNECT_OP    reduce using rule 35 (graph_operand -> node .)
+    WEIGHT_OP       reduce using rule 35 (graph_operand -> node .)
+    L_WEIGHT_OP     reduce using rule 35 (graph_operand -> node .)
+    R_WEIGHT_OP     reduce using rule 35 (graph_operand -> node .)
+
+  ! LINE_BREAK      [ reduce using rule 35 (graph_operand -> node .) ]
+  ! $end            [ reduce using rule 35 (graph_operand -> node .) ]
+
+
+state 90
+
+    (17) assignment_expression -> ID ASSIGN_OP assignable .
+
+    LINE_BREAK      reduce using rule 17 (assignment_expression -> ID ASSIGN_OP assignable .)
+    $end            reduce using rule 17 (assignment_expression -> ID ASSIGN_OP assignable .)
+
+
+state 91
+
+    (15) type_expression -> L_BRACKET TYPE R_BRACKET . ID
+
+    ID              shift and go to state 116
+
+
+state 92
+
+    (18) assignment_expression -> assignable ASSIGN_OP type_expression .
+
+    LINE_BREAK      reduce using rule 18 (assignment_expression -> assignable ASSIGN_OP type_expression .)
+    $end            reduce using rule 18 (assignment_expression -> assignable ASSIGN_OP type_expression .)
+
+
+state 93
+
+    (19) assignment_expression -> assignable ASSIGN_OP ID .
+
+    LINE_BREAK      reduce using rule 19 (assignment_expression -> assignable ASSIGN_OP ID .)
+    $end            reduce using rule 19 (assignment_expression -> assignable ASSIGN_OP ID .)
+
+
+state 94
+
+    (24) arithmetic_expression -> ari_operand ari_operator arithmetic_expression .
+
+    LINE_BREAK      reduce using rule 24 (arithmetic_expression -> ari_operand ari_operator arithmetic_expression .)
+    $end            reduce using rule 24 (arithmetic_expression -> ari_operand ari_operator arithmetic_expression .)
+    ASSIGN_OP       reduce using rule 24 (arithmetic_expression -> ari_operand ari_operator arithmetic_expression .)
+
+
+state 95
+
+    (26) ari_operand -> INTEGER .
+
+    PLUS_OP         reduce using rule 26 (ari_operand -> INTEGER .)
+    MINUS_OP        reduce using rule 26 (ari_operand -> INTEGER .)
+    TIMES_OP        reduce using rule 26 (ari_operand -> INTEGER .)
+    OVER_OP         reduce using rule 26 (ari_operand -> INTEGER .)
+    LINE_BREAK      reduce using rule 26 (ari_operand -> INTEGER .)
+    $end            reduce using rule 26 (ari_operand -> INTEGER .)
+    ASSIGN_OP       reduce using rule 26 (ari_operand -> INTEGER .)
+
+
+state 96
+
+    (27) ari_operand -> DECIMAL .
+
+    PLUS_OP         reduce using rule 27 (ari_operand -> DECIMAL .)
+    MINUS_OP        reduce using rule 27 (ari_operand -> DECIMAL .)
+    TIMES_OP        reduce using rule 27 (ari_operand -> DECIMAL .)
+    OVER_OP         reduce using rule 27 (ari_operand -> DECIMAL .)
+    LINE_BREAK      reduce using rule 27 (ari_operand -> DECIMAL .)
+    $end            reduce using rule 27 (ari_operand -> DECIMAL .)
+    ASSIGN_OP       reduce using rule 27 (ari_operand -> DECIMAL .)
+
+
+state 97
+
+    (28) ari_operand -> ID .
+
+    PLUS_OP         reduce using rule 28 (ari_operand -> ID .)
+    MINUS_OP        reduce using rule 28 (ari_operand -> ID .)
+    TIMES_OP        reduce using rule 28 (ari_operand -> ID .)
+    OVER_OP         reduce using rule 28 (ari_operand -> ID .)
+    LINE_BREAK      reduce using rule 28 (ari_operand -> ID .)
+    $end            reduce using rule 28 (ari_operand -> ID .)
+    ASSIGN_OP       reduce using rule 28 (ari_operand -> ID .)
+
+
+state 98
+
+    (33) graph_expression -> graph_operand graph_operator graph_expression .
+
+    LINE_BREAK      reduce using rule 33 (graph_expression -> graph_operand graph_operator graph_expression .)
+    $end            reduce using rule 33 (graph_expression -> graph_operand graph_operator graph_expression .)
+    ASSIGN_OP       reduce using rule 33 (graph_expression -> graph_operand graph_operator graph_expression .)
+
+
+state 99
+
+    (35) graph_operand -> node .
+
+    CONNECT_OP      reduce using rule 35 (graph_operand -> node .)
+    DISCONNECT_OP   reduce using rule 35 (graph_operand -> node .)
+    L_CONNECT_OP    reduce using rule 35 (graph_operand -> node .)
+    R_CONNECT_OP    reduce using rule 35 (graph_operand -> node .)
+    WEIGHT_OP       reduce using rule 35 (graph_operand -> node .)
+    L_WEIGHT_OP     reduce using rule 35 (graph_operand -> node .)
+    R_WEIGHT_OP     reduce using rule 35 (graph_operand -> node .)
+    LINE_BREAK      reduce using rule 35 (graph_operand -> node .)
+    $end            reduce using rule 35 (graph_operand -> node .)
+    ASSIGN_OP       reduce using rule 35 (graph_operand -> node .)
+
+
+state 100
+
+    (36) graph_operand -> ID .
+    (46) node -> ID .
+
+  ! reduce/reduce conflict for CONNECT_OP resolved using rule 36 (graph_operand -> ID .)
+  ! reduce/reduce conflict for DISCONNECT_OP resolved using rule 36 (graph_operand -> ID .)
+  ! reduce/reduce conflict for L_CONNECT_OP resolved using rule 36 (graph_operand -> ID .)
+  ! reduce/reduce conflict for R_CONNECT_OP resolved using rule 36 (graph_operand -> ID .)
+  ! reduce/reduce conflict for WEIGHT_OP resolved using rule 36 (graph_operand -> ID .)
+  ! reduce/reduce conflict for L_WEIGHT_OP resolved using rule 36 (graph_operand -> ID .)
+  ! reduce/reduce conflict for R_WEIGHT_OP resolved using rule 36 (graph_operand -> ID .)
+  ! reduce/reduce conflict for LINE_BREAK resolved using rule 36 (graph_operand -> ID .)
+  ! reduce/reduce conflict for $end resolved using rule 36 (graph_operand -> ID .)
+  ! reduce/reduce conflict for ASSIGN_OP resolved using rule 36 (graph_operand -> ID .)
+    CONNECT_OP      reduce using rule 36 (graph_operand -> ID .)
+    DISCONNECT_OP   reduce using rule 36 (graph_operand -> ID .)
+    L_CONNECT_OP    reduce using rule 36 (graph_operand -> ID .)
+    R_CONNECT_OP    reduce using rule 36 (graph_operand -> ID .)
+    WEIGHT_OP       reduce using rule 36 (graph_operand -> ID .)
+    L_WEIGHT_OP     reduce using rule 36 (graph_operand -> ID .)
+    R_WEIGHT_OP     reduce using rule 36 (graph_operand -> ID .)
+    LINE_BREAK      reduce using rule 36 (graph_operand -> ID .)
+    $end            reduce using rule 36 (graph_operand -> ID .)
+    ASSIGN_OP       reduce using rule 36 (graph_operand -> ID .)
+
+  ! CONNECT_OP      [ reduce using rule 46 (node -> ID .) ]
+  ! DISCONNECT_OP   [ reduce using rule 46 (node -> ID .) ]
+  ! L_CONNECT_OP    [ reduce using rule 46 (node -> ID .) ]
+  ! R_CONNECT_OP    [ reduce using rule 46 (node -> ID .) ]
+  ! WEIGHT_OP       [ reduce using rule 46 (node -> ID .) ]
+  ! L_WEIGHT_OP     [ reduce using rule 46 (node -> ID .) ]
+  ! R_WEIGHT_OP     [ reduce using rule 46 (node -> ID .) ]
+  ! LINE_BREAK      [ reduce using rule 46 (node -> ID .) ]
+  ! $end            [ reduce using rule 46 (node -> ID .) ]
+  ! ASSIGN_OP       [ reduce using rule 46 (node -> ID .) ]
+
+
+state 101
+
+    (65) add -> ADD_FUNC L_PARENTHESIS graph . COMMA node_list R_PARENTHESIS
+
+    COMMA           shift and go to state 117
+
+
+state 102
+
+    (55) graph -> ID .
+
+    COMMA           reduce using rule 55 (graph -> ID .)
+    R_PARENTHESIS   reduce using rule 55 (graph -> ID .)
+
+
+state 103
+
+    (66) remove -> REMOVE_FUNC L_PARENTHESIS graph . COMMA node_list R_PARENTHESIS
+
+    COMMA           shift and go to state 118
+
+
+state 104
+
+    (67) join -> JOIN_FUNC L_PARENTHESIS graph . COMMA graph R_PARENTHESIS
+
+    COMMA           shift and go to state 119
+
+
+state 105
+
+    (68) subtract -> SUBTRACT_FUNC L_PARENTHESIS graph . COMMA graph R_PARENTHESIS
+
+    COMMA           shift and go to state 120
+
+
+state 106
+
+    (69) intersect -> INTERSECT_FUNC L_PARENTHESIS graph . COMMA graph R_PARENTHESIS
+
+    COMMA           shift and go to state 121
+
+
+state 107
+
+    (70) reverse -> REVERSE_FUNC L_PARENTHESIS graph . R_PARENTHESIS
+
+    R_PARENTHESIS   shift and go to state 122
+
+
+state 108
+
+    (71) disconnect -> DISCONNECT_FUNC L_PARENTHESIS graph . R_PARENTHESIS
+
+    R_PARENTHESIS   shift and go to state 123
+
+
+state 109
+
+    (72) connect_all -> CONNECT_ALL_FUNC L_PARENTHESIS graph . R_PARENTHESIS
+
+    R_PARENTHESIS   shift and go to state 124
+
+
+state 110
+
+    (73) path_find -> PATH_FIND_FUNC L_PARENTHESIS node . COMMA node R_PARENTHESIS
+
+    COMMA           shift and go to state 125
+
+
+state 111
+
+    (49) node_connections -> L_PARENTHESIS node_list . R_PARENTHESIS
+    (51) node_list -> node_list . COMMA node
+
+    R_PARENTHESIS   shift and go to state 126
+    COMMA           shift and go to state 114
+
+
+state 112
+
+    (50) node_connections -> L_PARENTHESIS R_PARENTHESIS .
+
+    CONNECT_OP      reduce using rule 50 (node_connections -> L_PARENTHESIS R_PARENTHESIS .)
+    DISCONNECT_OP   reduce using rule 50 (node_connections -> L_PARENTHESIS R_PARENTHESIS .)
+    L_CONNECT_OP    reduce using rule 50 (node_connections -> L_PARENTHESIS R_PARENTHESIS .)
+    R_CONNECT_OP    reduce using rule 50 (node_connections -> L_PARENTHESIS R_PARENTHESIS .)
+    WEIGHT_OP       reduce using rule 50 (node_connections -> L_PARENTHESIS R_PARENTHESIS .)
+    L_WEIGHT_OP     reduce using rule 50 (node_connections -> L_PARENTHESIS R_PARENTHESIS .)
+    R_WEIGHT_OP     reduce using rule 50 (node_connections -> L_PARENTHESIS R_PARENTHESIS .)
+    LINE_BREAK      reduce using rule 50 (node_connections -> L_PARENTHESIS R_PARENTHESIS .)
+    $end            reduce using rule 50 (node_connections -> L_PARENTHESIS R_PARENTHESIS .)
+    ASSIGN_OP       reduce using rule 50 (node_connections -> L_PARENTHESIS R_PARENTHESIS .)
+    R_BRACKET       reduce using rule 50 (node_connections -> L_PARENTHESIS R_PARENTHESIS .)
+    COMMA           reduce using rule 50 (node_connections -> L_PARENTHESIS R_PARENTHESIS .)
+    R_PARENTHESIS   reduce using rule 50 (node_connections -> L_PARENTHESIS R_PARENTHESIS .)
+
+
+state 113
+
+    (53) graph -> G_BRACKET node_list R_BRACKET .
+
+    ASSIGN_OP       reduce using rule 53 (graph -> G_BRACKET node_list R_BRACKET .)
+    R_PARENTHESIS   reduce using rule 53 (graph -> G_BRACKET node_list R_BRACKET .)
+    LINE_BREAK      reduce using rule 53 (graph -> G_BRACKET node_list R_BRACKET .)
+    $end            reduce using rule 53 (graph -> G_BRACKET node_list R_BRACKET .)
+    COMMA           reduce using rule 53 (graph -> G_BRACKET node_list R_BRACKET .)
+
+
+state 114
+
+    (51) node_list -> node_list COMMA . node
+    (44) node -> . plain_node
+    (45) node -> . plain_node node_connections
+    (46) node -> . ID
+    (47) plain_node -> . N_PARENTHESIS plain_value R_PARENTHESIS
+    (48) plain_node -> . N_PARENTHESIS R_PARENTHESIS
+
+    ID              shift and go to state 75
+    N_PARENTHESIS   shift and go to state 41
+
+    node                           shift and go to state 127
+    plain_node                     shift and go to state 39
+
+state 115
+
+    (47) plain_node -> N_PARENTHESIS plain_value R_PARENTHESIS .
+
+    L_PARENTHESIS   reduce using rule 47 (plain_node -> N_PARENTHESIS plain_value R_PARENTHESIS .)
+    CONNECT_OP      reduce using rule 47 (plain_node -> N_PARENTHESIS plain_value R_PARENTHESIS .)
+    DISCONNECT_OP   reduce using rule 47 (plain_node -> N_PARENTHESIS plain_value R_PARENTHESIS .)
+    L_CONNECT_OP    reduce using rule 47 (plain_node -> N_PARENTHESIS plain_value R_PARENTHESIS .)
+    R_CONNECT_OP    reduce using rule 47 (plain_node -> N_PARENTHESIS plain_value R_PARENTHESIS .)
+    WEIGHT_OP       reduce using rule 47 (plain_node -> N_PARENTHESIS plain_value R_PARENTHESIS .)
+    L_WEIGHT_OP     reduce using rule 47 (plain_node -> N_PARENTHESIS plain_value R_PARENTHESIS .)
+    R_WEIGHT_OP     reduce using rule 47 (plain_node -> N_PARENTHESIS plain_value R_PARENTHESIS .)
+    LINE_BREAK      reduce using rule 47 (plain_node -> N_PARENTHESIS plain_value R_PARENTHESIS .)
+    $end            reduce using rule 47 (plain_node -> N_PARENTHESIS plain_value R_PARENTHESIS .)
+    ASSIGN_OP       reduce using rule 47 (plain_node -> N_PARENTHESIS plain_value R_PARENTHESIS .)
+    R_BRACKET       reduce using rule 47 (plain_node -> N_PARENTHESIS plain_value R_PARENTHESIS .)
+    COMMA           reduce using rule 47 (plain_node -> N_PARENTHESIS plain_value R_PARENTHESIS .)
+    R_PARENTHESIS   reduce using rule 47 (plain_node -> N_PARENTHESIS plain_value R_PARENTHESIS .)
+
+
+state 116
+
+    (15) type_expression -> L_BRACKET TYPE R_BRACKET ID .
+
+    ASSIGN_OP       reduce using rule 15 (type_expression -> L_BRACKET TYPE R_BRACKET ID .)
+    LINE_BREAK      reduce using rule 15 (type_expression -> L_BRACKET TYPE R_BRACKET ID .)
+    $end            reduce using rule 15 (type_expression -> L_BRACKET TYPE R_BRACKET ID .)
+
+
+state 117
+
+    (65) add -> ADD_FUNC L_PARENTHESIS graph COMMA . node_list R_PARENTHESIS
+    (51) node_list -> . node_list COMMA node
+    (52) node_list -> . node
+    (44) node -> . plain_node
+    (45) node -> . plain_node node_connections
+    (46) node -> . ID
+    (47) plain_node -> . N_PARENTHESIS plain_value R_PARENTHESIS
+    (48) plain_node -> . N_PARENTHESIS R_PARENTHESIS
+
+    ID              shift and go to state 75
+    N_PARENTHESIS   shift and go to state 41
+
+    node_list                      shift and go to state 128
+    node                           shift and go to state 74
+    plain_node                     shift and go to state 39
+
+state 118
+
+    (66) remove -> REMOVE_FUNC L_PARENTHESIS graph COMMA . node_list R_PARENTHESIS
+    (51) node_list -> . node_list COMMA node
+    (52) node_list -> . node
+    (44) node -> . plain_node
+    (45) node -> . plain_node node_connections
+    (46) node -> . ID
+    (47) plain_node -> . N_PARENTHESIS plain_value R_PARENTHESIS
+    (48) plain_node -> . N_PARENTHESIS R_PARENTHESIS
+
+    ID              shift and go to state 75
+    N_PARENTHESIS   shift and go to state 41
+
+    node_list                      shift and go to state 129
+    node                           shift and go to state 74
+    plain_node                     shift and go to state 39
+
+state 119
+
+    (67) join -> JOIN_FUNC L_PARENTHESIS graph COMMA . graph R_PARENTHESIS
+    (53) graph -> . G_BRACKET node_list R_BRACKET
+    (54) graph -> . G_BRACKET R_BRACKET
+    (55) graph -> . ID
+
+    G_BRACKET       shift and go to state 40
+    ID              shift and go to state 102
+
+    graph                          shift and go to state 130
+
+state 120
+
+    (68) subtract -> SUBTRACT_FUNC L_PARENTHESIS graph COMMA . graph R_PARENTHESIS
+    (53) graph -> . G_BRACKET node_list R_BRACKET
+    (54) graph -> . G_BRACKET R_BRACKET
+    (55) graph -> . ID
+
+    G_BRACKET       shift and go to state 40
+    ID              shift and go to state 102
+
+    graph                          shift and go to state 131
+
+state 121
+
+    (69) intersect -> INTERSECT_FUNC L_PARENTHESIS graph COMMA . graph R_PARENTHESIS
+    (53) graph -> . G_BRACKET node_list R_BRACKET
+    (54) graph -> . G_BRACKET R_BRACKET
+    (55) graph -> . ID
+
+    G_BRACKET       shift and go to state 40
+    ID              shift and go to state 102
+
+    graph                          shift and go to state 132
+
+state 122
+
+    (70) reverse -> REVERSE_FUNC L_PARENTHESIS graph R_PARENTHESIS .
+
+    LINE_BREAK      reduce using rule 70 (reverse -> REVERSE_FUNC L_PARENTHESIS graph R_PARENTHESIS .)
+    $end            reduce using rule 70 (reverse -> REVERSE_FUNC L_PARENTHESIS graph R_PARENTHESIS .)
+
+
+state 123
+
+    (71) disconnect -> DISCONNECT_FUNC L_PARENTHESIS graph R_PARENTHESIS .
+
+    LINE_BREAK      reduce using rule 71 (disconnect -> DISCONNECT_FUNC L_PARENTHESIS graph R_PARENTHESIS .)
+    $end            reduce using rule 71 (disconnect -> DISCONNECT_FUNC L_PARENTHESIS graph R_PARENTHESIS .)
+
+
+state 124
+
+    (72) connect_all -> CONNECT_ALL_FUNC L_PARENTHESIS graph R_PARENTHESIS .
+
+    LINE_BREAK      reduce using rule 72 (connect_all -> CONNECT_ALL_FUNC L_PARENTHESIS graph R_PARENTHESIS .)
+    $end            reduce using rule 72 (connect_all -> CONNECT_ALL_FUNC L_PARENTHESIS graph R_PARENTHESIS .)
+
+
+state 125
+
+    (73) path_find -> PATH_FIND_FUNC L_PARENTHESIS node COMMA . node R_PARENTHESIS
+    (44) node -> . plain_node
+    (45) node -> . plain_node node_connections
+    (46) node -> . ID
+    (47) plain_node -> . N_PARENTHESIS plain_value R_PARENTHESIS
+    (48) plain_node -> . N_PARENTHESIS R_PARENTHESIS
+
+    ID              shift and go to state 75
+    N_PARENTHESIS   shift and go to state 41
+
+    node                           shift and go to state 133
+    plain_node                     shift and go to state 39
+
+state 126
+
+    (49) node_connections -> L_PARENTHESIS node_list R_PARENTHESIS .
+
+    CONNECT_OP      reduce using rule 49 (node_connections -> L_PARENTHESIS node_list R_PARENTHESIS .)
+    DISCONNECT_OP   reduce using rule 49 (node_connections -> L_PARENTHESIS node_list R_PARENTHESIS .)
+    L_CONNECT_OP    reduce using rule 49 (node_connections -> L_PARENTHESIS node_list R_PARENTHESIS .)
+    R_CONNECT_OP    reduce using rule 49 (node_connections -> L_PARENTHESIS node_list R_PARENTHESIS .)
+    WEIGHT_OP       reduce using rule 49 (node_connections -> L_PARENTHESIS node_list R_PARENTHESIS .)
+    L_WEIGHT_OP     reduce using rule 49 (node_connections -> L_PARENTHESIS node_list R_PARENTHESIS .)
+    R_WEIGHT_OP     reduce using rule 49 (node_connections -> L_PARENTHESIS node_list R_PARENTHESIS .)
+    LINE_BREAK      reduce using rule 49 (node_connections -> L_PARENTHESIS node_list R_PARENTHESIS .)
+    $end            reduce using rule 49 (node_connections -> L_PARENTHESIS node_list R_PARENTHESIS .)
+    ASSIGN_OP       reduce using rule 49 (node_connections -> L_PARENTHESIS node_list R_PARENTHESIS .)
+    R_BRACKET       reduce using rule 49 (node_connections -> L_PARENTHESIS node_list R_PARENTHESIS .)
+    COMMA           reduce using rule 49 (node_connections -> L_PARENTHESIS node_list R_PARENTHESIS .)
+    R_PARENTHESIS   reduce using rule 49 (node_connections -> L_PARENTHESIS node_list R_PARENTHESIS .)
+
+
+state 127
+
+    (51) node_list -> node_list COMMA node .
+
+    R_BRACKET       reduce using rule 51 (node_list -> node_list COMMA node .)
+    COMMA           reduce using rule 51 (node_list -> node_list COMMA node .)
+    R_PARENTHESIS   reduce using rule 51 (node_list -> node_list COMMA node .)
+
+
+state 128
+
+    (65) add -> ADD_FUNC L_PARENTHESIS graph COMMA node_list . R_PARENTHESIS
+    (51) node_list -> node_list . COMMA node
+
+    R_PARENTHESIS   shift and go to state 134
+    COMMA           shift and go to state 114
+
+
+state 129
+
+    (66) remove -> REMOVE_FUNC L_PARENTHESIS graph COMMA node_list . R_PARENTHESIS
+    (51) node_list -> node_list . COMMA node
+
+    R_PARENTHESIS   shift and go to state 135
+    COMMA           shift and go to state 114
+
+
+state 130
+
+    (67) join -> JOIN_FUNC L_PARENTHESIS graph COMMA graph . R_PARENTHESIS
+
+    R_PARENTHESIS   shift and go to state 136
+
+
+state 131
+
+    (68) subtract -> SUBTRACT_FUNC L_PARENTHESIS graph COMMA graph . R_PARENTHESIS
+
+    R_PARENTHESIS   shift and go to state 137
+
+
+state 132
+
+    (69) intersect -> INTERSECT_FUNC L_PARENTHESIS graph COMMA graph . R_PARENTHESIS
+
+    R_PARENTHESIS   shift and go to state 138
+
+
+state 133
+
+    (73) path_find -> PATH_FIND_FUNC L_PARENTHESIS node COMMA node . R_PARENTHESIS
+
+    R_PARENTHESIS   shift and go to state 139
+
+
+state 134
+
+    (65) add -> ADD_FUNC L_PARENTHESIS graph COMMA node_list R_PARENTHESIS .
+
+    LINE_BREAK      reduce using rule 65 (add -> ADD_FUNC L_PARENTHESIS graph COMMA node_list R_PARENTHESIS .)
+    $end            reduce using rule 65 (add -> ADD_FUNC L_PARENTHESIS graph COMMA node_list R_PARENTHESIS .)
+
+
+state 135
+
+    (66) remove -> REMOVE_FUNC L_PARENTHESIS graph COMMA node_list R_PARENTHESIS .
+
+    LINE_BREAK      reduce using rule 66 (remove -> REMOVE_FUNC L_PARENTHESIS graph COMMA node_list R_PARENTHESIS .)
+    $end            reduce using rule 66 (remove -> REMOVE_FUNC L_PARENTHESIS graph COMMA node_list R_PARENTHESIS .)
+
+
+state 136
+
+    (67) join -> JOIN_FUNC L_PARENTHESIS graph COMMA graph R_PARENTHESIS .
+
+    LINE_BREAK      reduce using rule 67 (join -> JOIN_FUNC L_PARENTHESIS graph COMMA graph R_PARENTHESIS .)
+    $end            reduce using rule 67 (join -> JOIN_FUNC L_PARENTHESIS graph COMMA graph R_PARENTHESIS .)
+
+
+state 137
+
+    (68) subtract -> SUBTRACT_FUNC L_PARENTHESIS graph COMMA graph R_PARENTHESIS .
+
+    LINE_BREAK      reduce using rule 68 (subtract -> SUBTRACT_FUNC L_PARENTHESIS graph COMMA graph R_PARENTHESIS .)
+    $end            reduce using rule 68 (subtract -> SUBTRACT_FUNC L_PARENTHESIS graph COMMA graph R_PARENTHESIS .)
+
+
+state 138
+
+    (69) intersect -> INTERSECT_FUNC L_PARENTHESIS graph COMMA graph R_PARENTHESIS .
+
+    LINE_BREAK      reduce using rule 69 (intersect -> INTERSECT_FUNC L_PARENTHESIS graph COMMA graph R_PARENTHESIS .)
+    $end            reduce using rule 69 (intersect -> INTERSECT_FUNC L_PARENTHESIS graph COMMA graph R_PARENTHESIS .)
+
+
+state 139
+
+    (73) path_find -> PATH_FIND_FUNC L_PARENTHESIS node COMMA node R_PARENTHESIS .
+
+    LINE_BREAK      reduce using rule 73 (path_find -> PATH_FIND_FUNC L_PARENTHESIS node COMMA node R_PARENTHESIS .)
+    $end            reduce using rule 73 (path_find -> PATH_FIND_FUNC L_PARENTHESIS node COMMA node R_PARENTHESIS .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for ASSIGN_OP in state 10 resolved as shift
+WARNING: shift/reduce conflict for ASSIGN_OP in state 10 resolved as shift
+WARNING: shift/reduce conflict for ASSIGN_OP in state 10 resolved as shift
+WARNING: shift/reduce conflict for ASSIGN_OP in state 10 resolved as shift
+WARNING: shift/reduce conflict for ASSIGN_OP in state 10 resolved as shift
+WARNING: reduce/reduce conflict in state 10 resolved using rule (ari_operand -> ID)
+WARNING: rejected rule (graph_operand -> ID) in state 10
+WARNING: reduce/reduce conflict in state 10 resolved using rule (graph_operand -> ID)
+WARNING: rejected rule (node -> ID) in state 10
+WARNING: reduce/reduce conflict in state 10 resolved using rule (ari_operand -> ID)
+WARNING: rejected rule (node -> ID) in state 10
+WARNING: reduce/reduce conflict in state 25 resolved using rule (plain_value -> INTEGER)
+WARNING: rejected rule (ari_operand -> INTEGER) in state 25
+WARNING: reduce/reduce conflict in state 26 resolved using rule (plain_value -> DECIMAL)
+WARNING: rejected rule (ari_operand -> DECIMAL) in state 26
+WARNING: reduce/reduce conflict in state 27 resolved using rule (plain_value -> node)
+WARNING: rejected rule (graph_operand -> node) in state 27
+WARNING: reduce/reduce conflict in state 81 resolved using rule (node -> ID)
+WARNING: rejected rule (graph -> ID) in state 81
+WARNING: reduce/reduce conflict in state 84 resolved using rule (assignable -> ID)
+WARNING: rejected rule (node -> ID) in state 84
+WARNING: reduce/reduce conflict in state 84 resolved using rule (assignable -> ID)
+WARNING: rejected rule (graph -> ID) in state 84
+WARNING: reduce/reduce conflict in state 84 resolved using rule (assignable -> ID)
+WARNING: rejected rule (ari_operand -> ID) in state 84
+WARNING: reduce/reduce conflict in state 84 resolved using rule (graph_operand -> ID)
+WARNING: rejected rule (node -> ID) in state 84
+WARNING: reduce/reduce conflict in state 84 resolved using rule (assignable -> ID)
+WARNING: rejected rule (graph_operand -> ID) in state 84
+WARNING: reduce/reduce conflict in state 87 resolved using rule (plain_value -> INTEGER)
+WARNING: rejected rule (ari_operand -> INTEGER) in state 87
+WARNING: reduce/reduce conflict in state 88 resolved using rule (plain_value -> DECIMAL)
+WARNING: rejected rule (ari_operand -> DECIMAL) in state 88
+WARNING: reduce/reduce conflict in state 89 resolved using rule (plain_value -> node)
+WARNING: rejected rule (graph_operand -> node) in state 89
+WARNING: reduce/reduce conflict in state 100 resolved using rule (graph_operand -> ID)
+WARNING: rejected rule (node -> ID) in state 100

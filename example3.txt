@@ -1,0 +1,6 @@
+graph W = g[P, Q, R]
+node P = n()()
+node Q = n()()
+node R = n()()
+P -5- Q
+Q -2- R

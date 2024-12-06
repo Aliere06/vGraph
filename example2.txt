@@ -1,0 +1,7 @@
+graph D = g[X, Y, Z]
+node X = n("x")()
+node Y = n("y")()
+node Z = n("z")()
+X --> Y
+Y --> Z
+Z --> X

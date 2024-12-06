@@ -1,0 +1,4 @@
+graph G = g[]
+node S = n("start")()
+node n5x5 = n(25)()
+add(G, S, n5x5)

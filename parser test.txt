@@ -1,0 +1,7 @@
+ident = 15
+n()
+ident + 15 * num
+n()(n1, n2, n())
+n()()
+n() -5> n1
+pathFind(n1, n2)

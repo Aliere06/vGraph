@@ -1,0 +1,6 @@
+graph G = g[A, B, C]
+node A = n("a")()
+node B = n("b")()
+node C = n("c")()
+A --- B
+B --- C

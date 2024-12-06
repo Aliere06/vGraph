@@ -1,0 +1,5 @@
+graph C = g[A, B, C, D]
+node A = n()()
+node B = n()()
+node C = n()()
+node D = n()()

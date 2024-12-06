@@ -1,0 +1,14 @@
+node A = n("a")()
+node B = n("b")(A)
+node C = n("c")(A, B)
+graph G1 = g[A, B, C]
+A --> B
+C -2> B
+[dec]PI = 3.14159
+[dec]E = 2.71828
+[int]One = 1
+node X = n(PI)()
+node Y = n(E)()
+node Z = n(One)()
+graph G2 = g[X, Y, Z]
+connectAll(G2)
